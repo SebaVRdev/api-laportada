@@ -4,11 +4,11 @@ import { deletePlayer, getPlayer, getPlayers, savePLayer, updatePlayer, statePla
 const router = Router();
 
 //Definimos rutas
-router.get('/players', getPlayers);
-router.get('/players/:id', getPlayer);
-router.post('/players', savePLayer);
-router.put('/players/:id', updatePlayer);
-router.delete('/players/:id', deletePlayer);
-router.put('/players/disable/:id', statePlayer);
+router.get('/player', getPlayers);
+router.get('/player/:id', getPlayer);
+router.post('/player', savePLayer);
+router.put('/player/:id', updatePlayer);
+router.delete('/player/:id', deletePlayer);
+router.put('/player/disable/:id', statePlayer);
 
 export default router;
