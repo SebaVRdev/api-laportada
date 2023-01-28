@@ -4,10 +4,10 @@ import { deleteSerie, getSerie, getSeries, saveSerie, updateSerie } from "../con
 const router = Router();
 
 //Definimos rutas
-router.get('/series',getSeries );
-router.get('/series/:id', getSerie);
-router.post('/series', saveSerie);
-router.put('/series/:id', updateSerie);
-router.delete('/series/:id', deleteSerie);
+router.get('/serie',getSeries );
+router.get('/serie/:id', getSerie);
+router.post('/serie', saveSerie);
+router.put('/serie/:id', updateSerie);
+router.delete('/serie/:id', deleteSerie);
 
 export default router;
