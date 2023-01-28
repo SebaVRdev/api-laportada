@@ -5,7 +5,7 @@ import { Player } from '../models/Player.js'
 export const getPlayers = async (req, res) => {
     try {
         const players = await Player.findAll()
-        res.send(players)
+        res.json({players:players})
     } catch (error) {
         res.status(500).json({message: error.message});
     }
