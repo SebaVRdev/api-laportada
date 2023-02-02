@@ -8,8 +8,8 @@ import {sequelize}  from '../databases/databases.js'
 export const Player = sequelize.define('players', {
     id: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING,
@@ -17,7 +17,7 @@ export const Player = sequelize.define('players', {
     years: {
         type: DataTypes.INTEGER
     },
-    description: {
+    position: {
         type: DataTypes.STRING
     },
     state:{
