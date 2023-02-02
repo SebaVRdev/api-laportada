@@ -6,22 +6,18 @@ import { PlayerSerie } from "./src/models/Team.js";
 //Series
 const series = [
     {
-      id: 1,
       name: "primera",
       coach: "Martin Hernandez"
     },
     {
-      id: 2,
       name: "segunda",
       coach: "Victor Vega"
     },
     {
-      id: 3,
       name: "tercera",
       coach: "Pep Guardiola"
     },
     {
-      id: 4,
       name: "segunda infantil",
       coach: "N/A"
     }
@@ -30,31 +26,27 @@ const series = [
   //Players
 const players = [
     {
-      id: 1,
       name: "Sebastian Valenzuela",
       years: 21,
-      description: "Jugador rapido y veloz bueno pal futbol",
+      position: "Delantero Izquierdo",
       state: true
     },
     {
-      id: 2,
       name: "Javier Viera",
       years: 37,
-      description: "Medio Centro ofensivo con pases increibles",
+      position: "Medio Centro Ofensivo",
       state: true
     },
     {
-      id: 3,
       name: "Trinidad Viera",
       years: 15,
-      description: "Delantera centra goladora",
+      position: "Delantero Centro",
       state: true
     },
     {
-      id: 4,
       name: "Agustin Viera",
       years: 12,
-      description: "Defensor mas alto de todos, nunca pierde un cabezaso",
+      position: "Defensor Central",
       state: true
     }
 ];  
@@ -62,33 +54,28 @@ const players = [
 //Teams
 const teams = [
     {
-      id: 1,
       playerId: 1,
       serieId: 1
     },
     {
-      id: 2,
       playerId: 1,
       serieId: 3
     },
     {
-      id: 3,
       playerId: 3,
       serieId: 4
     },
     {
-      id: 4,
       playerId: 4,
       serieId: 4
     },
     {
-      id: 5,
       playerId: 2,
       serieId: 2
     }
 ];
 
-sequelize.sync({force: false}).then(() => {
+sequelize.sync({force: true}).then(() => {
     console.log("Conexion estanlecida");
 })
 .then(() => {
