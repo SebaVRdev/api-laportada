@@ -31,12 +31,15 @@ export const getPlayer = async (req, res) => {
 
 export const savePLayer = async (req, res) => {
     //Guradamos los datos que vienen del body
-    const {id,name, years, position } = req.body
+    const {name, years, position, partidos, goles, saves} = req.body
     try {
         const newPlayer = await Player.create({
             name,
             years,
-            position
+            position,
+            partidos,
+            goles,
+            saves
         });
         res.json(newPlayer);
         

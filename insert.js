@@ -29,24 +29,36 @@ const players = [
       name: "Sebastian Valenzuela",
       years: 21,
       position: "Delantero Izquierdo",
+      partidos:6,
+      goles:10,
+      saves:0,
       state: true
     },
     {
       name: "Javier Viera",
       years: 37,
       position: "Medio Centro Ofensivo",
+      partidos:3,
+      goles:5,
+      saves:0,
       state: true
     },
     {
       name: "Trinidad Viera",
       years: 15,
       position: "Delantero Centro",
+      partidos:3,
+      goles:5,
+      saves:0,
       state: true
     },
     {
       name: "Agustin Viera",
       years: 12,
       position: "Defensor Central",
+      partidos:10,
+      goles:3,
+      saves:0,
       state: true
     }
 ];  

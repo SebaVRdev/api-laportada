@@ -2,14 +2,11 @@
     
 //Traemos modelos para hacer los querys
 import { Serie } from '../models/Serie.js'
-import { Player } from '../models/Player.js';
-import { PlayerSerie } from '../models/Team.js';
-import { where } from 'sequelize';
 
 export const getSeries = async (req, res) => {
     try {
         const series = await Serie.findAll()
-        res.send(series)
+        res.send({series})
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -26,7 +23,7 @@ export const getSerie = async (req, res) => {
             return res.status(404).json({message: `No se encontro una tarea con ID: ${id}`})
         }
 
-        res.send(serie)
+        res.json({serie})
 
     } catch (error) {
         res.status(500).json({message: error.message});
