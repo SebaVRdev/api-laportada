@@ -20,6 +20,18 @@ export const Player = sequelize.define('players', {
     position: {
         type: DataTypes.STRING
     },
+    partidos:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    goles:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    saves:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
     state:{
         type: DataTypes.BOOLEAN,
         defaultValue: true
