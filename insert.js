@@ -32,7 +32,7 @@ const players = [
       partidos:6,
       goles:10,
       saves:0,
-      state: true
+      image:""
     },
     {
       name: "Javier Viera",
@@ -41,7 +41,7 @@ const players = [
       partidos:3,
       goles:5,
       saves:0,
-      state: true
+      image:""
     },
     {
       name: "Trinidad Viera",
@@ -50,7 +50,7 @@ const players = [
       partidos:3,
       goles:5,
       saves:0,
-      state: true
+      image:""
     },
     {
       name: "Agustin Viera",
@@ -59,7 +59,16 @@ const players = [
       partidos:10,
       goles:3,
       saves:0,
-      state: true
+      image:""
+    },
+    {
+      name: "Claudio Bravo",
+      years: 30,
+      position: "Portero",
+      partidos:8,
+      goles:0,
+      saves:3,
+      image:""
     }
 ];  
   

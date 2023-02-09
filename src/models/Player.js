@@ -35,6 +35,9 @@ export const Player = sequelize.define('players', {
     state:{
         type: DataTypes.BOOLEAN,
         defaultValue: true
+    },
+    image:{
+        type: DataTypes.STRING,
     }
 },{
     //Aca pueden ir opciones de la tabla
