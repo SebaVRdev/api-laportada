@@ -34,6 +34,7 @@ export const getPlayer = async (req, res) => {
 };
 
 export const savePLayer = async (req, res) => {
+  console.log("Entrando al SavePlayer!")
   //Guradamos los datos que vienen del body
   const { name, years, position, partidos, goles, saves } = req.body;
   try {
@@ -45,7 +46,7 @@ export const savePLayer = async (req, res) => {
       goles,
       saves,
     });
-    res.json(newPlayer);
+    res.json({player:newPlayer});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -124,51 +125,45 @@ export const statePlayer = async (req, res) => {
 };
 
 export const uploadImage = async (req, res) => {
-    console.log("Entrando upload")
+  console.log("Entrando upload")
   //Recogemos id del jugador sobre el cual se va a guardar la imagen
   let id = req.params.id;
   let fileName = "Imagen no subida...";
-  console.log(req.files)
-  if (req.files) {
-      var filePath = req.files.image.path; //Ubicacion del archivo
-      let fileSplit = filePath.split("\\"); //Split del path
-      fileName = fileSplit[2]; //Tomamos solo el nombre
-      console.log(filePath) 
-
-        //Validamos que sea un archivo valido '.png' '.jpg' etc
-        let extSplit = fileName.split("."); //Cortamos por el punto
-        let fileExt = extSplit[1]; //Sacamos lo que venga despues del punto
-
-
-        if (fileExt == "png" || fileExt == "jpg" || fileExt == "jpeng" || fileExt == "jpeg" || fileExt == "gif") {
-            //SI ESTA BIEN ENTONCES EJECUTAMOS EL UPLOAD
-            const player = await Player.findOne({
-                where: { id },
-            });  
-
-            if (!player) {
-                fs.unlink(filePath, (err) => {});
-                return res.status(404).json({ message: `No se encontro jugador con ID: ${id}` });
-            }
-            //En caso de que si exista jugador, le insertamos el nombre de la imagen
-            //Si con anterioridad ya tiene imagen debemos borrarla del upload
-            console.log(`src\\uploads\\${player.image}`)
-            if ([player.image !== '']) {
-                fs.unlink(`src\\uploads\\${player.image}`,(err) => {});
-            }
-
-            player.image = fileName;
-            //Lo guardamos
-            player.save();
-        
-            res.status(200).send({message:'Imagen insertada con exito!' ,player});
-        }else {
-            //En caso de que el archivo no este bien, lo borramos de la carpeta upload
-            fs.unlink(filePath, (err) => {
-                return res.status(200).send({ message: "Extencion no valida" });
-            });
-        }
+  
+  if (req.files.image) { //Siempre que se ingrese una file con name: 'image' entra
+    var filePath = req.files.image.path; //Ubicacion del archivo
+    let fileSplit = filePath.split("\\"); 
+    fileName = fileSplit[2]; //Tomamos solo el nombre
+    
+    //Validamos que sea un archivo valido '.png' '.jpg' etc
+    let extSplit = fileName.split("."); //Cortamos por el punto
+    let fileExt = extSplit[1]; //Sacamos lo que venga despues del punto
+    if (fileExt == "png" || fileExt == "jpg" || fileExt == "jpeng" || fileExt == "jpeg" || fileExt == "gif") {
+      //SI ESTA BIEN ENTONCES EJECUTAMOS EL UPLOAD
+      const player = await Player.findOne({
+          where: { id },
+      });  
+      if (!player) {
+          fs.unlink(filePath, (err) => {});
+          return res.status(404).json({ message: `No se encontro jugador con ID: ${id}` });
+      }
+      //En caso de que si exista jugador, le insertamos el nombre de la imagen
+      //Si con anterioridad ya tiene imagen debemos borrarla del .src/uploads
+      if (player.image !== '') {
+          fs.unlink(`src\\uploads\\${player.image}`,(err) => {});
+      }
+      player.image = fileName;
+      //Lo guardamos
+      player.save();
+      res.status(200).send({message:'Imagen insertada con exito!' ,player});
+    
+    }else {
+      //En caso de que el archivo no este bien, lo borramos de la carpeta upload
+      fs.unlink(filePath, (err) => {
+          return res.status(200).send({ message: "Extencion no valida" });
+      });
     }
+  }
 };
 
 //Metodo para devolver la imagen
