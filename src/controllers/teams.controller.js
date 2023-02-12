@@ -9,14 +9,11 @@ export const getSeriesPlayer = async (req, res) => {
 
     //Bucsamos los jugadores que tengan como serieId = id
     const players = await PlayerSerie.findAll({
-        include: {
+        include: [{
             model: Player,
             as: 'player',
             attributes: ['name']
-        },
-        where: {
-            serieId: id
-        }
+        }]
     }); 
 
     res.json(players);

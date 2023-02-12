@@ -23,3 +23,4 @@ export const Serie = sequelize.define('series', {
     timestamps: false
 });
 
+

@@ -16,7 +16,7 @@ export const PlayerSerie = sequelize.define('teams', {
     timestamps: false
 });
 
-
+/* 
 Player.hasMany(PlayerSerie, {
     as: 'player',
     foreignKey: 'playerId'
@@ -33,3 +33,4 @@ PlayerSerie.belongsTo(Player, {
 PlayerSerie.belongsTo(Serie, {
     as: 'serie'
 });
+ */

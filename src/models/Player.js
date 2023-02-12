@@ -42,4 +42,4 @@ export const Player = sequelize.define('players', {
 },{
     //Aca pueden ir opciones de la tabla
     timestamps: false
-})
+});

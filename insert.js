@@ -1,7 +1,7 @@
 import { sequelize } from "./src/databases/databases.js";
 import { Player } from "./src/models/Player.js";
 import { Serie } from "./src/models/Serie.js";
-import { PlayerSerie } from "./src/models/Team.js";
+import "./src/models/relation.js"
 
 //Series
 const series = [
@@ -16,10 +16,6 @@ const series = [
     {
       name: "tercera",
       coach: "Pep Guardiola"
-    },
-    {
-      name: "segunda infantil",
-      coach: "N/A"
     }
 ]
   
@@ -35,15 +31,6 @@ const players = [
       image:""
     },
     {
-      name: "Javier Viera",
-      years: 37,
-      position: "Medio Centro Ofensivo",
-      partidos:3,
-      goles:5,
-      saves:0,
-      image:""
-    },
-    {
       name: "Trinidad Viera",
       years: 15,
       position: "Delantero Centro",
@@ -54,7 +41,7 @@ const players = [
     },
     {
       name: "Agustin Viera",
-      years: 12,
+      years: 13,
       position: "Defensor Central",
       partidos:10,
       goles:3,
@@ -71,40 +58,75 @@ const players = [
       image:""
     }
 ];  
-  
-//Teams
-const teams = [
-    {
-      playerId: 1,
-      serieId: 1
-    },
-    {
-      playerId: 1,
-      serieId: 3
-    },
-    {
-      playerId: 3,
-      serieId: 4
-    },
-    {
-      playerId: 4,
-      serieId: 4
-    },
-    {
-      playerId: 2,
-      serieId: 2
-    }
-];
 
 sequelize.sync({force: true}).then(() => {
     console.log("Conexion estanlecida");
 })
 .then(() => {
+      players.forEach( player => Player.create(player));
+  })
+.then(() => {
     series.forEach( serie => Serie.create(serie));
 })
-.then(() => {
-    players.forEach( player => Player.create(player));
+.then( async () => {
+    //Ejemplo de como se podrian ingresar datos a la BD
+    //Creamos una nueva serie de ejemplo
+    let seniorSerie = await Serie.create({
+        name: "senior",
+        coach: "Marcelo Bielsa",
+        players: [
+          {
+            name: "Javier Viera",
+            years: 37,
+            position: "Medio Centro Ofensivo",
+            partidos:3,
+            goles:5,
+            saves:0,
+            image:""
+          },
+          {
+            name: "Hernan Cifuentes",
+            years: 40,
+            position: "Delantero Centro",
+            partidos:10,
+            goles:6,
+            saves:0,
+            image:""
+          }
+        ]
+    },{
+      include: "players"
+    });
 })
-.then(() => {
-    teams.forEach( team => PlayerSerie.create(team));
+.then( async () => {
+  
+    //OTRA FORMA DE CREAR O AGREGAR 
+
+    let player1 = await Player.create({
+      name: "Vicente Cuevas",
+      years: 10,
+      position: "Medio Centro",
+      partidos:5,
+      goles:2,
+      saves:0,
+      image:""
+    });
+
+    let player2 = await Player.create({
+      name: "Pedro Ignacio",
+      years: 11,
+      position: "Portero",
+      partidos:3,
+      goles:0,
+      saves:1,
+      image:""
+    });
+
+    let segundaInfantil = await Serie.create({
+      name: "segunda infantil",
+      coach: "N/A"
+    });
+    segundaInfantil.addPlayer(player1);
+    segundaInfantil.addPlayer(player2);
+    //segundaInfantil.addPlayers([player1,player2]);
 })
