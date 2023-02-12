@@ -126,7 +126,17 @@ sequelize.sync({force: true}).then(() => {
       name: "segunda infantil",
       coach: "N/A"
     });
-    segundaInfantil.addPlayer(player1);
-    segundaInfantil.addPlayer(player2);
+    await segundaInfantil.addPlayer(player1);
+    await segundaInfantil.addPlayer(player2)
     //segundaInfantil.addPlayers([player1,player2]);
-})
+    await segundaInfantil.addPlayer(player2)
+
+    const result = await Player.findAll({
+      include: {
+          model: Serie,
+          where: {id:4}
+      }
+    });
+    await console.log(result);
+
+  })

@@ -9,5 +9,5 @@ through: "player_serie"  <- Crea una nueva tabla en la BD
 Esta nueva tabla permitira hacer nuevas funciones
 serie.addPlayer() serie.addPlayers([]) serie.getPlayer() ... etc
 */
-Player.belongsToMany(Serie, {through: "player_serie"}) 
-Serie.belongsToMany(Player, {through: "player_serie"}) 
+Player.belongsToMany(Serie, {through: "player_serie",onDelete: 'CASCADE'}) 
+Serie.belongsToMany(Player, {through: "player_serie",onDelete: 'CASCADE'}) 

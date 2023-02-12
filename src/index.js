@@ -2,6 +2,7 @@
 
 //Llamamos la configuracion de express
 import app from './app.js';
+import "./models/relation.js"
 
 //Import bd
 import {sequelize} from './databases/databases.js'

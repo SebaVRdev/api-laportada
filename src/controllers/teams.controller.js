@@ -5,17 +5,12 @@ import { PlayerSerie } from "../models/Team.js";
 
 //Obtener jugadores de una serie
 export const getSeriesPlayer = async (req, res) => {
-    const {id} = req.params //Id de la serie
-
+    const id = req.params.id //Id de la serie
     //Bucsamos los jugadores que tengan como serieId = id
-    const players = await PlayerSerie.findAll({
-        include: [{
-            model: Player,
-            as: 'player',
-            attributes: ['name']
-        }]
-    }); 
-
+    const result = await Serie.findOne({
+        where: {id}
+      });
+    const players = await result.getPlayers();   
     res.json(players);
 }
 
@@ -35,7 +30,8 @@ export const insertPlayerInSerie = async (req, res) => {
     //Verificar que el usuario este valido para el club
     if (!player.state) {
         return res.status(404).json({message: `El jugador ${player.name} no esta valido!`});
-    }
+    };
+
     const serieBD = await Serie.findOne({ 
         where: { 
             name: serie
@@ -46,11 +42,8 @@ export const insertPlayerInSerie = async (req, res) => {
         return res.status(404).json({message: `No se encontro serie con nombre: ${serie}`})
     }
 
-    const team = await PlayerSerie.create({
-        playerId: player.id,
-        serieId: serieBD.id
-    });
-    res.send({team,serieBD});
+    const team = await serieBD.addPlayer(player);
+    res.send({team});
 };
 
 //Sacar un usuario de una serie
@@ -60,12 +53,13 @@ export const deletePlayerOfSeries = async (req, res) => {
         const serieId = req.params.serieId;
     
         //Con la combinacion del jugador con la serie podemos eliminarlo directamente
-        await PlayerSerie.destroy({
+        const serie = await Serie.findOne({
             where: {
-                playerId,
-                serieId
+                id:serieId
             }
         });
+        await serie.removePlayer(playerId)
+
         res.sendStatus(204);
     } catch (error) {
         console.log(error)
