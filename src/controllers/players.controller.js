@@ -33,6 +33,26 @@ export const getPlayer = async (req, res) => {
   }
 };
 
+export const getPlayerForName = async (req, res) => {
+  try {
+    const { name } = req.params;
+    console.log(name)
+    const player = await Player.findOne({
+      where: { name },
+    });
+
+    if (!player) {
+      return res
+        .status(404)
+        .send({ message: `No se encontro jugador con nombre: ${name}` });
+    }
+
+    res.send(player);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const savePLayer = async (req, res) => {
   console.log("Entrando al SavePlayer!")
   //Guradamos los datos que vienen del body

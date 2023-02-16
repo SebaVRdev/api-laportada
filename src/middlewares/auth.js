@@ -1,5 +1,4 @@
 //MDLW para verificar que al ingresar nuevos usuarios sean unos que no existan
-import express from "express";
 import { Player } from "../models/Player.js";
 
 export const verifyName = async (req, res, next) => {
@@ -9,10 +8,12 @@ export const verifyName = async (req, res, next) => {
     });
     
    if (player) {
-    console.log("Encontro player")
-        return res.status(200).send({ message: "Nombre Ya existente" });
+      console.log("Encontro player")
+      return res.status(500).send({ message: "Nombre Ya existente" });
    }
-   next();
+   else{
+     next();
+   }
 
  } catch (error) {
    console.log(error);
