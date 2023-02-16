@@ -36,7 +36,7 @@ export const getPlayer = async (req, res) => {
 export const getPlayerForName = async (req, res) => {
   try {
     const { name } = req.params;
-    console.log(name)
+    
     const player = await Player.findOne({
       where: { name },
     });
